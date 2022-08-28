@@ -28,9 +28,10 @@
         </li>
       </ul>
       <form class="d-flex">
+      <a href="<?=URL?>/users/login" class="btn btn-outline-success me-2">Login</a>
         <a href="<?=URL?>/users/register" class="btn btn-outline-success me-2">Cadastrar</a>
         <!-- <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"> -->
-        <button class="btn btn-outline-success" type="submit">Search</button>
+        
       </form>
     </div>
   </div>

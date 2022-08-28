@@ -1,7 +1,7 @@
 <?php
 
 
-class Users extends Controller 
+class Users extends Controller
 {
     public function __construct()
     {
@@ -16,7 +16,7 @@ class Users extends Controller
 
         if (isset($formulario)) {
             $dados = [
-                'nome' => trim($formulario['nome']), 
+                'nome' => trim($formulario['nome']),
                 'email' => trim($formulario['email']),
                 'senha' => trim($formulario['senha']),
                 'confirmar_senha' => trim($formulario['confirmar_senha']),
@@ -33,31 +33,31 @@ class Users extends Controller
                 }
                 if (empty($formulario['confirmar_senha'])) {
                     $dados['confirmar_senha_erro'] = "Preencha o campo confirmar senha";
-                } 
-            }else{
+                }
+            } else {
                 if (Check::ChecarNome($formulario['nome'])) {
                     $dados['nome_erro'] = 'O nome informado é invalido';
-                }else if (Check::ChecarEmail($formulario['email'])) {
+                } else if (Check::ChecarEmail($formulario['email'])) {
                     $dados['email_erro'] = 'o e-mail informado é invalido';
-                }elseif (strlen($formulario['senha']) < 6) {
+                } elseif (strlen($formulario['senha']) < 6) {
                     $dados['senha_erro'] = ' A senha deve ter no minimo 6 caracteres';
-                }elseif ($formulario['senha'] != $formulario['confirmar_senha']) {
+                } elseif ($formulario['senha'] != $formulario['confirmar_senha']) {
                     $dados['confirmar_senha_erro'] = 'As senha são diferentes';
                 } else {
 
                     $dados['senha'] = password_hash($formulario['senha'], PASSWORD_DEFAULT);
-                    
-                    if($this->usuarioModel->armazenar($dados)){
+
+                    if ($this->usuarioModel->armazenar($dados)) {
                         echo 'Cadastro realizado com sucesso';
-                    }else{
+                    } else {
                         echo "Erro ao armazenar usuario no banco de dados";
                     }
                 }
             }
 
-             $senhaSegura = password_hash($formulario['senha'],PASSWORD_DEFAULT);   
-             /* echo 'Senha hash:' .$senhaSegura .'<br>';    */ 
-             /* var_dump($formulario);  */
+            $senhaSegura = password_hash($formulario['senha'], PASSWORD_DEFAULT);
+            /* echo 'Senha hash:' .$senhaSegura .'<br>';    */
+            /* var_dump($formulario);  */
         } else {
             $dados = [
                 'nome' => '',
@@ -68,5 +68,50 @@ class Users extends Controller
         };
 
         $this->view('users/register', $dados);
+    }
+
+    /* --------------------LOGIN --------------------- */
+    public function login()
+    {
+
+        $formulario = filter_input_array(INPUT_POST, FILTER_SANITIZE_SPECIAL_CHARS);
+
+        if (isset($formulario)) {
+            $dados = [
+                'email' => trim($formulario['email']),
+                'senha' => trim($formulario['senha']),
+            ];
+            if (in_array("", $formulario)) {
+                if (empty($formulario['email'])) {
+                    $dados['email_erro'] = "Preencha o campo email";
+                }
+                if (empty($formulario['senha'])) {
+                    $dados['senha_erro'] = "Preencha o campo senha";
+                }
+            } else {
+                if (Check::ChecarEmail($formulario['email'])) {
+                    $dados['email_erro'] = 'o e-mail informado é invalido';
+                } else {
+                    $checarLogin = $this->usuarioModel->checarLogin($formulario['email'], $formulario['senha']);
+
+                    if ($checarLogin) {
+                        echo 'Usuario logado, pode criar a sessão <hr>';
+                    }
+                    echo "Usuario ou senha invalidos <hr>";
+                }
+            }
+
+
+            $senhaSegura = password_hash($formulario['senha'], PASSWORD_DEFAULT);
+            /* echo 'Senha hash:' .$senhaSegura .'<br>';    */
+            /* var_dump($formulario);  */
+        } else {
+            $dados = [
+                'email' => '',
+                'senha' => '',
+            ];
+        };
+
+        $this->view('users/login', $dados);
     }
 }

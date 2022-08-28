@@ -7,6 +7,17 @@
             $this->db = new Database();
         }
 
+         public function checarEmail($email){
+            $this->db->query("SELECT email FROM users WHERE email =:e");
+            $this->db->bind(":e", $email);
+
+            if($this->db->resultado()){
+                return true;
+            }else{
+                return false;
+            }
+        }
+ 
         public function armazenar($dados){
             
             $this->db->query(("INSERT INTO users(nome , email , senha ) VALUES (:nome, :email, :senha)"));
@@ -22,6 +33,23 @@
             }
             
         }
+
+        public function checarLogin($email, $senha){
+            $this->db->query("SELECT * FROM users WHERE email =:e");
+            $this->db->bind(":e", $email);
+
+            if($this->db->resultado()){
+                $resultado = $this->db->resultado();
+                if(password_verify($senha, $resultado->senha)){
+                    return $resultado;
+                }else{
+                    return false;
+                }
+            }else{
+                return false;
+            }
+        }
+ 
         
     }
 ?>
