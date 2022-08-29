@@ -39,7 +39,9 @@
             $this->db->bind(":e", $email);
 
             if($this->db->resultado()){
+
                 $resultado = $this->db->resultado();
+                
                 if(password_verify($senha, $resultado->senha)){
                     return $resultado;
                 }else{

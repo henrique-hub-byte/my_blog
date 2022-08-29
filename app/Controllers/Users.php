@@ -91,13 +91,15 @@ class Users extends Controller
             } else {
                 if (Check::ChecarEmail($formulario['email'])) {
                     $dados['email_erro'] = 'o e-mail informado é invalido';
-                } else {
-                    $checarLogin = $this->usuarioModel->checarLogin($formulario['email'], $formulario['senha']);
-
-                    if ($checarLogin) {
-                        echo 'Usuario logado, pode criar a sessão <hr>';
+                } else { 
+                    $usuario = $this->usuarioModel->checarLogin($formulario['email'],$formulario['senha']);
+                    
+                    if ($usuario) {
+                        $this->criarSessaoUsuario($usuario);
+                    }else{
+                        echo "Usuario ou senha invalidos <hr>";    
                     }
-                    echo "Usuario ou senha invalidos <hr>";
+                    
                 }
             }
 
@@ -113,5 +115,19 @@ class Users extends Controller
         };
 
         $this->view('users/login', $dados);
+    }
+
+    private function criarSessaoUsuario($usuario){
+        $_SESSION['usuario_id'] = $usuario->id_usuario;
+        $_SESSION['usuario_nome'] = $usuario->nome;
+        $_SESSION['usuario_email'] = $usuario->email;
+    }
+
+    public function sair(){
+        unset($_SESSION['usuario_id']);
+        unset($_SESSION['usuario_nome']);
+        unset($_SESSION['usuario_email']);
+
+        session_destroy();
     }
 }

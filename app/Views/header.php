@@ -1,38 +1,33 @@
 <nav class="navbar navbar-expand-lg navbar-dark  bg-dark">
   <div class="container-fluid">
-    <a class="navbar-brand" href=" <?=URL?> ">UnSet</a>
+    <a class="navbar-brand" href=" <?= URL ?> ">UnSet</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="<?=URL?>">Home</a>
+          <a class="nav-link active" aria-current="page" href="<?= URL ?>">Home</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="<?=URL?>/pages/about">Sobre nós</a>
+          <a class="nav-link" href="<?= URL ?>/pages/about">Sobre nós</a>
         </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Dropdown
-          </a>
-          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <li><a class="dropdown-item" href="#">Action</a></li>
-            <li><a class="dropdown-item" href="#">Another action</a></li>
-            <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="#">Something else here</a></li>
-          </ul>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link disabled">Disabled</a>
-        </li>
+
       </ul>
-      <form class="d-flex">
-      <a href="<?=URL?>/users/login" class="btn btn-outline-success me-2">Login</a>
-        <a href="<?=URL?>/users/register" class="btn btn-outline-success me-2">Cadastrar</a>
-        <!-- <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"> -->
-        
-      </form>
+      <?php if (isset($_SESSION['usuario_id'])) { ?>
+        <span class="nav-bar-text">
+        <p style="color: green;"><?= $_SESSION['usuario_nome'] ?> bem vindo(a)</p>
+
+        <a class="btn btn-sm btn-danger" href="<?= URL ?>/users/sair">Sair</a>
+        </span>
+      <?php } else { ?>
+
+        <form class="d-flex">
+          <a href="<?= URL ?>/users/login" class="btn btn-outline-success me-2">Login</a>
+          <a href="<?= URL ?>/users/register" class="btn btn-outline-success me-2">Cadastrar</a>
+
+        <?php } ?>
+        </form>
     </div>
   </div>
 </nav>

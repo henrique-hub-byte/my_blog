@@ -1,4 +1,6 @@
 <?php
+
+session_start();
 include './../app/config.php';
 /* include './../app/Libraries/Route.php';
 include './../app/Libraries/Controller.php';
