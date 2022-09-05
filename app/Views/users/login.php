@@ -1,9 +1,11 @@
 <div class="col-xl-6 col-md-8 mx-auto p-5">
     <div class="card">
-        <div class="card-body">
+        
             <h2>Login</h2>
             <small>Preencha seus dados para fazer seu login</small>
-
+            <?= Session::mensagem('user') ?>
+            
+            <div class="card-body">
             <form action="<?= URL ?>/users/login " method="POST" name="register" class="mt-4">
 
                 <div class="form-group">

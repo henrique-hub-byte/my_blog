@@ -6,7 +6,7 @@ include './../app/config.php';
 include './../app/Libraries/Controller.php';
 include './../app/Libraries/Connection.php'; */
 include './../app/autoload.php';
-include './../app/Helpers/Check.php';
+
 /* $db = new Database;    
 
  /* setar a data  */

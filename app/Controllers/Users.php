@@ -48,7 +48,8 @@ class Users extends Controller
                     $dados['senha'] = password_hash($formulario['senha'], PASSWORD_DEFAULT);
 
                     if ($this->usuarioModel->armazenar($dados)) {
-                        echo 'Cadastro realizado com sucesso';
+                        Session::mensagem('user', 'Cadastro realizado com sucesso');
+                        URL::rediricionar(('users/login'));
                     } else {
                         echo "Erro ao armazenar usuario no banco de dados";
                     }
@@ -91,19 +92,16 @@ class Users extends Controller
             } else {
                 if (Check::ChecarEmail($formulario['email'])) {
                     $dados['email_erro'] = 'o e-mail informado é invalido';
-                } else { 
-                    $usuario = $this->usuarioModel->checarLogin($formulario['email'],$formulario['senha']);
-                    
+                } else {
+                    $usuario = $this->usuarioModel->checarLogin($formulario['email'], $formulario['senha']);
+
                     if ($usuario) {
                         $this->criarSessaoUsuario($usuario);
-                    }else{
-                        echo "Usuario ou senha invalidos <hr>";    
+                    } else {
+                        Session::mensagem('user', 'Usuario ou senha invalidos', 'alert alert-danger');
                     }
-                    
                 }
             }
-
-
             $senhaSegura = password_hash($formulario['senha'], PASSWORD_DEFAULT);
             /* echo 'Senha hash:' .$senhaSegura .'<br>';    */
             /* var_dump($formulario);  */
@@ -111,23 +109,31 @@ class Users extends Controller
             $dados = [
                 'email' => '',
                 'senha' => '',
+                'email_erro' => '',
+                'senha_erro' => '',
             ];
         };
 
         $this->view('users/login', $dados);
     }
 
-    private function criarSessaoUsuario($usuario){
+    private function criarSessaoUsuario($usuario)
+    {
         $_SESSION['usuario_id'] = $usuario->id_usuario;
         $_SESSION['usuario_nome'] = $usuario->nome;
         $_SESSION['usuario_email'] = $usuario->email;
+        URL::rediricionar(('posts'));
     }
 
-    public function sair(){
+    public function sair()
+    {
         unset($_SESSION['usuario_id']);
         unset($_SESSION['usuario_nome']);
         unset($_SESSION['usuario_email']);
 
         session_destroy();
+
+        header('Location:' . URL . '');
+
     }
 }

@@ -6,7 +6,7 @@ spl_autoload_register(function($classe)  {
             /* lista de diretórios para buscar as classes */
         $diretorios = [
         'Libraries',
-            'Helpes'
+            'Helpers'
         ];
 
         foreach($diretorios as $diretorio){
