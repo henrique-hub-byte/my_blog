@@ -9,6 +9,7 @@
         }
 
         public function lerPosts(){
+            
             $this->db->query("SELECT *,
              posts.id_posts as postID,
              posts.criado_em as postDataCadastro,
@@ -40,9 +41,7 @@
         }
 
         public function lerPostPorId($id){
-            /* "SELECT * FROM users WHERE email =:e" */
-            /* $query = 'SELECT id_posts  FROM posts WHERE id_posts =:id_posts';
-            var_dump($query); */ 
+
             $this->db->query("SELECT * FROM posts WHERE id_posts =:id_posts");
             $this->db->bind('id_posts',$id); 
             
@@ -53,9 +52,7 @@
             
             $this->db->query("UPDATE posts SET  titulo = :titulo, texto = :texto WHERE id_posts =:id_posts");
             
-            
             $this->db->bind("id_posts",$dados['id']);
-            
             $this->db->bind("titulo",$dados['titulo']);
             $this->db->bind("texto",$dados['texto']);
             

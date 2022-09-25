@@ -15,7 +15,6 @@ class Posts extends Controller
 
     public function index()
     {
-
         $dados = [
             'posts' => $this->postModel->lerPosts()
         ];
@@ -50,17 +49,12 @@ class Posts extends Controller
                     echo "Erro ao armazenar usuario no banco de dados";
                 }
             }
-
-
-            /* echo 'Senha hash:' .$senhaSegura .'<br>';    */
-            /* var_dump($formulario);  */
         } else {
             $dados = [
                 'titulo' => '',
                 'texto' => '',
                 'titulo_erro' => '',
                 'texto_erro' => '',
-
             ];
         };
 
@@ -72,7 +66,7 @@ class Posts extends Controller
 
         $post = $this->postModel->lerPostPorId($id);
 
-        if($post == null){
+        if ($post == null) {
             Url::rediricionar('pages/error');
         }
 

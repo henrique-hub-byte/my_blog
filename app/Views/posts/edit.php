@@ -6,14 +6,13 @@
         </ol>
     </nav>
 
-
     <div class="card">
         <div class="card-header bg-dark text-white">
             Editar post
         </div>
         <?= Session::mensagem('user') ?>
         <div class="card-body">
-            <form action="<?= URL ?>/posts/edit/<?= $dados['id']?> " method="POST" name="register" class="mt-4">
+            <form action="<?= URL ?>/posts/edit/<?= $dados['id'] ?> " method="POST" name="register" class="mt-4">
 
                 <div class="form-group">
                     <label for="titulo" class="form-label">Título<sup class="text-danger">*</sup></label>

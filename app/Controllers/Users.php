@@ -8,7 +8,6 @@ class Users extends Controller
         $this->usuarioModel = $this->model('User');
     }
 
-
     public function register()
     {
 
@@ -71,7 +70,6 @@ class Users extends Controller
         $this->view('users/register', $dados);
     }
 
-    /* --------------------LOGIN --------------------- */
     public function login()
     {
         $formulario = filter_input_array(INPUT_POST, FILTER_SANITIZE_SPECIAL_CHARS);
@@ -133,6 +131,5 @@ class Users extends Controller
         session_destroy();
 
         header('Location:' . URL . '');
-
     }
 }

@@ -28,8 +28,6 @@
                 'tituloPagina' => 'Pagina não encontrada'
             ];
 
-
             $this->view('pages/error', $dados );
         } 
     }
-?>
