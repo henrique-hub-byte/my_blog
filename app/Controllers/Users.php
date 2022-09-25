@@ -74,7 +74,6 @@ class Users extends Controller
     /* --------------------LOGIN --------------------- */
     public function login()
     {
-
         $formulario = filter_input_array(INPUT_POST, FILTER_SANITIZE_SPECIAL_CHARS);
 
         if (isset($formulario)) {

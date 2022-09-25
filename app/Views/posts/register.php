@@ -21,7 +21,7 @@
 
                 <div class="form-group">
                     <label for="texto" class="form-label">Texto:<sup class="text-danger">*</sup></label>
-                    <textarea type="text" id="texto" name="texto" 
+                    <textarea type="text" id="texto" rows="5" name="texto" 
                     class="form-control <?php if (isset($dados['texto_erro'])) {
                                                                                                                             echo $dados['texto_erro'] ? 'is-invalid' : '';
                                                                                                                         }; ?>"></textarea>

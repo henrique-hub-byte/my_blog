@@ -2,11 +2,11 @@
 
 class Database
 {
-    private $host = 'localhost';
-    private $usuario = 'root';
-    private $banco = 'project_php_mvc';
-    private $senha = 'Anfield_893';
-    private $porta = '3306';
+    private $host = DB['HOST'];
+    private $usuario = DB['USER'];
+    private $banco = DB['DATA'];
+    private $senha = DB['PASSWORD'];
+    private $porta = DB['PORT'];
     private $dbh;
     private $stmt;
 
@@ -67,7 +67,7 @@ class Database
     }
 
     public function resultados()
-    {
+    {   
         $this->executa();
         return $this->stmt->fetchAll(PDO::FETCH_OBJ);
     }

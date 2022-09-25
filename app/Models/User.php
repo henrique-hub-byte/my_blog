@@ -10,7 +10,7 @@
          public function checarEmail($email){
             $this->db->query("SELECT email FROM users WHERE email =:e");
             $this->db->bind(":e", $email);
-
+            
             if($this->db->resultado()){
                 return true;
             }else{
@@ -37,7 +37,7 @@
         public function checarLogin($email, $senha){
             $this->db->query("SELECT * FROM users WHERE email =:e");
             $this->db->bind(":e", $email);
-
+            var_dump($this->db);
             if($this->db->resultado()){
 
                 $resultado = $this->db->resultado();
@@ -51,7 +51,16 @@
                 return false;
             }
         }
- 
+        
+        public function lerUserPorId($id){
+            /* "SELECT * FROM users WHERE email =:e" */
+            /* $query = 'SELECT id_posts  FROM posts WHERE id_posts =:id_posts';
+            var_dump($query); */ 
+            $this->db->query("SELECT * FROM users WHERE id_usuario =:id_usuario");
+            $this->db->bind('id_usuario',$id); 
+            
+            return $this->db->resultado();
+        }
         
     }
 ?>
